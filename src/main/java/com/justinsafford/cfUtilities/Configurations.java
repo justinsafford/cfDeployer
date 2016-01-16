@@ -4,13 +4,15 @@ import org.cloudfoundry.client.lib.CloudCredentials;
 import org.cloudfoundry.client.lib.CloudFoundryClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 
 @Configuration
-public class ConfigurationFile {
+public class Configurations {
     @Bean
+    @Profile("test")
     public CloudFoundryClient myCloudFoundryClient() throws MalformedURLException {
         String cloudUser = System.getenv("CFUSER");
         String cloudPass = System.getenv("CFPASS");
