@@ -19,9 +19,9 @@ public class AppController {
     @RequestMapping(
             value = "/app",
             method = RequestMethod.POST,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+            consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public void addNewApp() {
+    public void createNewApp() {
 
         ArrayList<String> uris = new ArrayList<>();
         uris.add("app-uri");

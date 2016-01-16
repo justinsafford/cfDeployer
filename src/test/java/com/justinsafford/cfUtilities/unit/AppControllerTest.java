@@ -20,7 +20,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
-public class createCfApplication {
+public class AppControllerTest {
     @Mock
     CloudFoundryClient cloudFoundryClient;
 
@@ -46,6 +46,7 @@ public class createCfApplication {
                 .content("{\"AppName\":\"app-name\"}"))
                 .andExpect(status().isCreated());
 
-        verify(cloudFoundryClient, times(1)).createApplication(eq("app-name"), any(Staging.class), anyInt(), anyList(), anyList());
+        verify(cloudFoundryClient, times(1)).createApplication(
+                eq("app-name"), any(Staging.class), anyInt(), anyList(), anyList());
     }
 }
