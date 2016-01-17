@@ -38,12 +38,10 @@ public class SpaceControllerTest {
 
     @Test
     public void postToCreateSpaceCreatesANewCFSpace() throws Exception {
-//        doNothing().when(cloudFoundryClient).createSpace("space-name");
-
-        mockMVC.perform(post("/space")
+        mockMVC.perform(post("/space/{cloudClientId}", "cloud-client")
+                .param("spaceName", "space-name")
                 .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"SpaceName\":\"space-name\"}"))
+                .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated());
 
         verify(cloudFoundryClient, times(1)).createSpace(eq("space-name"));
