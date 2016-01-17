@@ -13,6 +13,9 @@ import org.mockito.junit.MockitoRule;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -43,10 +46,14 @@ public class AppControllerTest {
         mockMVC.perform(post("/app")
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"AppName\":\"app-name\"}"))
+                .content("{\"applicationName\":\"app-name\"," +
+                        "\"memory\":1," +
+                        "\"service\":\"service-name\"}"))
                 .andExpect(status().isCreated());
 
+        List<String> serviceList = new ArrayList<>();
+        serviceList.add("service-name");
         verify(cloudFoundryClient, times(1)).createApplication(
-                eq("app-name"), any(Staging.class), anyInt(), anyList(), anyList());
+                eq("app-name"), any(Staging.class), eq(1), anyList(), eq(serviceList));
     }
 }
