@@ -1,0 +1,16 @@
+server.port: 8082
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost/cfDeployer_local
+      port: 27017
+
+---
+spring.profiles: test
+
+spring:
+  data:
+    mongo:
+      uri: mongodb://localhost/cfDeployer_test
+      port: 27017
