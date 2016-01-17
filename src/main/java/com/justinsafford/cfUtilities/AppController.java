@@ -14,11 +14,11 @@ public class AppController {
     CloudFoundryClient cloudFoundryClient;
 
     @RequestMapping(
-            value = "/app",
+            value = "/application",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public void createNewApp(@RequestBody ApplicationRequest applicationRequest) {
+    public void createApp(@RequestBody ApplicationRequest applicationRequest) {
         ArrayList<String> uris = new ArrayList<>();
         String uri = "http://" + applicationRequest.getApplicationName() + ".cfapps.io";
         uris.add(uri);

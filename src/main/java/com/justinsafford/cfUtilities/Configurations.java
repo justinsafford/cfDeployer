@@ -11,6 +11,8 @@ import java.net.URL;
 
 @Configuration
 public class Configurations {
+
+    //TODO:Look to retire this bean..
     @Bean
     @Profile("test")
     public CloudFoundryClient myCloudFoundryClient() throws MalformedURLException {

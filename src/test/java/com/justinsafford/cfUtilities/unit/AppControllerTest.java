@@ -43,7 +43,7 @@ public class AppControllerTest {
 
     @Test
     public void postToCreateApplicationCreatesANewCFApplication() throws Exception {
-        mockMVC.perform(post("/app")
+        mockMVC.perform(post("/application")
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"applicationName\":\"app-name\"," +
