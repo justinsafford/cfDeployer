@@ -12,6 +12,7 @@ buildscript {
 
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion")
+        classpath 'org.cloudfoundry:cf-gradle-plugin:1.1.1'
     }
 }
 
@@ -25,33 +26,9 @@ version = '1.0'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-repositories {
-    maven {
-        url artifactoryUrl
-    }
-}
-
-dependencies {
-    compile 'org.springframework.boot:spring-boot-starter'
-    compile 'org.cloudfoundry:cloudfoundry-client-lib:1.1.3'
-    compile 'org.springframework.boot:spring-boot-starter-data-mongodb'
-    compile 'io.springfox:springfox-swagger2:2.0.2'
-    compile 'io.springfox:springfox-swagger-ui:2.0.2'
-
-    testCompile 'org.springframework.boot:spring-boot-starter-test'
-    testCompile 'com.jayway.jsonpath:json-path'
-    testCompile 'org.skyscreamer:jsonassert'
-    testCompile 'org.powermock:powermock-api-mockito:1.6.2'
-    testCompile 'org.powermock:powermock-module-junit4:1.6.2'
-}
-
-processResources {
-    eachFile { file ->
-        // don't process Swagger content
-        // because it will strip new line characters
-        if (file.name == 'swagger.yml') {
-            return
-        }
-        expand project.properties
-    }
-}
+apply from: "$projectDir/gradle/config.gradle"
+apply from: "$projectDir/gradle/dependencies.gradle"
+apply from: "$projectDir/gradle/codeQuality.gradle"
+apply from: "$projectDir/gradle/distribution.gradle"
+apply from: "$projectDir/gradle/deployment.gradle"
+apply from: "$projectDir/gradle/processResources.gradle"

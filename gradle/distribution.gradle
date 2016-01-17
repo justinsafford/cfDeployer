@@ -1,0 +1,43 @@
+ext {
+    artifactoryReleaseUrl = 'http://localhost:8081/artifactory/libs-release-local'
+    artifactoryUsername = project.hasProperty('artifactoryUsername') ? artifactoryUsername : ''
+    artifactoryPassword = project.hasProperty('artifactoryPassword') ? artifactoryPassword : ''
+}
+
+apply plugin: 'maven-publish'
+
+publishing {
+    publications {
+        cfDeployer(MavenPublication) {
+            from components.java
+            artifactId archivesBaseName
+
+            pom {
+                withXml {
+                    def dependencyManagement = asNode().appendNode('dependencyManagement')
+                    def dependencies = dependencyManagement.appendNode('dependencies')
+                    def dependency = dependencies.appendNode('dependency')
+                    dependency.appendNode('groupId', 'org.springframework.boot')
+                    dependency.appendNode('artifactId', 'spring-boot-dependencies')
+                    dependency.appendNode('version', springBootVersion)
+                    dependency.appendNode('type', 'pom')
+                    dependency.appendNode('scope', 'import')
+                }
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            name 'artifactory'
+            url artifactoryReleaseUrl
+
+            credentials {
+                username = artifactoryUsername
+                password = artifactoryPassword
+            }
+        }
+    }
+}
+
+publish.dependsOn build

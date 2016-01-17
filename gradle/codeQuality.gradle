@@ -1,0 +1,25 @@
+apply plugin: 'sonar-runner'
+
+ext {
+    projectVersion = project.version
+    projectKey = "$project.group.$project.archivesBaseName"
+    hostUrl = 'http://localhost:9000'
+    jdbcUrl = 'jdbc:h2:tcp://localhost:9092/sonar'
+    sonarUsername = 'sonar'
+    sonarPassword = 'sonar'
+}
+
+sonarRunner {
+    sonarProperties {
+        property 'sonar.projectName', 'cfDeployer'
+        property 'sonar.projectDescription', 'cfDeployer Project'
+        property 'sonar.projectVersion', projectVersion
+        property 'sonar.projectKey', projectKey
+
+        property 'sonar.host.url', hostUrl
+        property 'sonar.jdbc.url', jdbcUrl
+        property 'sonar.jdbc.driverClassName', 'com.mysql.jdbc.Driver'
+        property 'sonar.jdbc.username', sonarUsername
+        property 'sonar.jdbc.password', sonarPassword
+    }
+}

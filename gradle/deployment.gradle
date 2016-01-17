@@ -1,0 +1,41 @@
+apply plugin: 'cloudfoundry'
+
+ext {
+    cfUsername = project.hasProperty('cfUsername') ? cfUsername : ''
+    cfPassword = project.hasProperty('cfPassword') ? cfPassword : ''
+}
+
+configurations {
+    cfDeployer
+}
+
+dependencies {
+    cfDeployer "$group:$archivesBaseName:$version@jar"
+}
+
+task fetchDeployableJar(type: Copy) {
+    from configurations.cfDeployer
+    into "$buildDir/download"
+}
+
+cloudfoundry {
+    username = cfUsername
+    password = cfPassword
+
+    target = config.cf.target
+    space = config.cf.space
+    uri = config.cf.uri
+    application = config.cf.application
+    memory = 512
+    file = file("${buildDir}/download/${archivesBaseName}-${version}.jar")
+
+    startApp = false
+
+    services {
+        'autoDb' {
+            label = "mongolab"
+            plan = "sandbox"
+            bind = true
+        }
+    }
+}

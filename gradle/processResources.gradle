@@ -1,0 +1,10 @@
+processResources {
+    eachFile { file ->
+        // don't process Swagger content
+        // because it will strip new line characters
+        if (file.name == 'swagger.yml') {
+            return
+        }
+        expand project.properties
+    }
+}
