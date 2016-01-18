@@ -1,15 +1,11 @@
 package com.justinsafford.cfUtilities.integration;
 
-import com.justinsafford.cfUtilities.Application;
+import com.justinsafford.cfUtilities.util.WebIntegrationTest;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.context.ActiveProfiles;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Application.class)
-@WebAppConfiguration
+@ActiveProfiles("test")
+@WebIntegrationTest
 public class ContextLoads {
 
 	@Test

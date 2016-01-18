@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        springBootVersion = '1.3.1.RELEASE'
+        springBootVersion = '1.2.6.RELEASE'
         artifactoryUrl = 'http://localhost:8081/artifactory/libs-release'
     }
 
@@ -17,14 +17,13 @@ buildscript {
 }
 
 apply plugin: 'java'
-apply plugin: 'spring-boot'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 group = 'com.justinsafford.utilities'
 archivesBaseName = 'cfDeployer'
 version = '1.0'
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
 
 apply from: "$projectDir/gradle/config.gradle"
 apply from: "$projectDir/gradle/dependencies.gradle"

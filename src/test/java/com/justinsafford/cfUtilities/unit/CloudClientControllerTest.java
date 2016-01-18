@@ -7,24 +7,17 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.mockito.Matchers.any;
-import static org.powermock.api.mockito.PowerMockito.whenNew;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
-@PrepareForTest({CloudFoundryClient.class, CloudController.class})
-@RunWith(PowerMockRunner.class)
 public class CloudClientControllerTest {
     @Mock
     CloudClientRepository cloudClientRepository;
@@ -53,7 +46,7 @@ public class CloudClientControllerTest {
 
 //        cloudFoundryClient = PowerMockito.mock(CloudFoundryClient.class);//(mock(CloudCredentials.class), mock(URL.class), anyString(), anyString());
 
-        whenNew(CloudFoundryClient.class).withAnyArguments().thenReturn(any(CloudFoundryClient.class));
+//        whenNew(CloudFoundryClient.class).withAnyArguments().thenReturn(any(CloudFoundryClient.class));
 
 
 
