@@ -1,5 +1,6 @@
-package com.justinsafford.cfUtilities;
+package com.justinsafford.cfUtilities.swagger;
 
+import com.justinsafford.cfUtilities.Application;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

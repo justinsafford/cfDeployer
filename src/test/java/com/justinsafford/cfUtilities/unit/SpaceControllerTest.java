@@ -1,6 +1,6 @@
 package com.justinsafford.cfUtilities.unit;
 
-import com.justinsafford.cfUtilities.SpaceController;
+import com.justinsafford.cfUtilities.space.SpaceController;
 import org.cloudfoundry.client.lib.CloudFoundryClient;
 import org.junit.Before;
 import org.junit.Rule;

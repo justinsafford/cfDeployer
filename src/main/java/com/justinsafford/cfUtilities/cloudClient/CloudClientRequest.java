@@ -1,4 +1,4 @@
-package com.justinsafford.cfUtilities;
+package com.justinsafford.cfUtilities.cloudClient;
 
 public class CloudClientRequest {
     private String cloudFoundryUsername;

@@ -1,4 +1,4 @@
-package com.justinsafford.cfUtilities;
+package com.justinsafford.cfUtilities.space;
 
 import org.cloudfoundry.client.lib.CloudFoundryClient;
 import org.springframework.http.HttpStatus;

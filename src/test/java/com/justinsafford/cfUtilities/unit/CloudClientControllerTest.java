@@ -1,7 +1,7 @@
 package com.justinsafford.cfUtilities.unit;
 
-import com.justinsafford.cfUtilities.CloudClientRepository;
-import com.justinsafford.cfUtilities.CloudController;
+import com.justinsafford.cfUtilities.cloudClient.CloudClientRepository;
+import com.justinsafford.cfUtilities.cloudClient.CloudController;
 import org.cloudfoundry.client.lib.CloudFoundryClient;
 import org.junit.Before;
 import org.junit.Ignore;

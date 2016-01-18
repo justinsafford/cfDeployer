@@ -1,6 +1,6 @@
 package com.justinsafford.cfUtilities.unit;
 
-import com.justinsafford.cfUtilities.AppController;
+import com.justinsafford.cfUtilities.app.AppController;
 import org.cloudfoundry.client.lib.CloudFoundryClient;
 import org.cloudfoundry.client.lib.domain.Staging;
 import org.junit.Before;

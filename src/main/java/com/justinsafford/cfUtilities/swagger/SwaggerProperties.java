@@ -1,4 +1,4 @@
-package com.justinsafford.cfUtilities;
+package com.justinsafford.cfUtilities.swagger;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

@@ -1,4 +1,4 @@
-package com.justinsafford.cfUtilities;
+package com.justinsafford.cfUtilities.cloudClient;
 
 import org.cloudfoundry.client.lib.CloudCredentials;
 import org.cloudfoundry.client.lib.CloudFoundryClient;

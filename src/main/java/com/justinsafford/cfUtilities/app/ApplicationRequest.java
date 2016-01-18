@@ -1,4 +1,4 @@
-package com.justinsafford.cfUtilities;
+package com.justinsafford.cfUtilities.app;
 
 public class ApplicationRequest {
     private String applicationName;
