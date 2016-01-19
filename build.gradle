@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        springBootVersion = '1.2.6.RELEASE'
+        springBootVersion = '1.2.5.RELEASE'
         artifactoryUrl = 'http://localhost:8081/artifactory/libs-release'
     }
 
@@ -30,4 +30,5 @@ apply from: "$projectDir/gradle/dependencies.gradle"
 apply from: "$projectDir/gradle/codeQuality.gradle"
 apply from: "$projectDir/gradle/distribution.gradle"
 apply from: "$projectDir/gradle/deployment.gradle"
+
 apply from: "$projectDir/gradle/processResources.gradle"
