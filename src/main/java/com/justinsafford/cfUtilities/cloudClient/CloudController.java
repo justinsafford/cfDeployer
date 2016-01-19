@@ -14,13 +14,13 @@ public class CloudController {
 
     CloudClientRepository cloudClientRepository;
 
+    //TODO:Find a way to unit test this
     @RequestMapping(
             value = "/cloudClient",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public void createCloudFoundryClient(@RequestBody CloudClientRequest cloudClientRequest) {
-//TODO:Properly test everything here
         CloudCredentials cloudCredentials = new CloudCredentials(
                 cloudClientRequest.getCloudFoundryUsername(),
                 cloudClientRequest.getCloudFoundryPassword());

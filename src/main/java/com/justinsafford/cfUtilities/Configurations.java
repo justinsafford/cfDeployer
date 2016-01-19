@@ -1,5 +1,6 @@
 package com.justinsafford.cfUtilities;
 
+import com.justinsafford.cfUtilities.testHelperClasses.CloudTestCreds;
 import org.cloudfoundry.client.lib.CloudCredentials;
 import org.cloudfoundry.client.lib.CloudFoundryClient;
 import org.springframework.context.annotation.Bean;
@@ -12,7 +13,6 @@ import java.net.URL;
 @Configuration
 public class Configurations {
 
-    //TODO:Look to retire this bean..
     @Bean
     @Profile("test")
     public CloudFoundryClient myCloudFoundryClient() throws MalformedURLException {
@@ -27,4 +27,18 @@ public class Configurations {
 
         return new CloudFoundryClient(cloudCredentials, url, cloudOrg, cloudSpace);
     }
+
+    @Bean
+    @Profile("test")
+    public CloudTestCreds testCloudCreds() {
+        CloudTestCreds cloudTestCreds = new CloudTestCreds();
+        cloudTestCreds.cloudUser = System.getenv("CFUSER");
+        cloudTestCreds.cloudPass = System.getenv("CFPASS");
+        cloudTestCreds.cloudOrg = System.getenv("CFORG");
+        cloudTestCreds.cloudSpace = System.getenv("CFSPACE");
+
+        return cloudTestCreds;
+    }
+
 }
+
