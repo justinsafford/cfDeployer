@@ -11,19 +11,6 @@ publishing {
         cfDeployer(MavenPublication) {
             from components.java
             artifactId archivesBaseName
-
-            pom {
-                withXml {
-                    def dependencyManagement = asNode().appendNode('dependencyManagement')
-                    def dependencies = dependencyManagement.appendNode('dependencies')
-                    def dependency = dependencies.appendNode('dependency')
-                    dependency.appendNode('groupId', 'org.springframework.boot')
-                    dependency.appendNode('artifactId', 'spring-boot-dependencies')
-                    dependency.appendNode('version', springBootVersion)
-                    dependency.appendNode('type', 'pom')
-                    dependency.appendNode('scope', 'import')
-                }
-            }
         }
     }
 

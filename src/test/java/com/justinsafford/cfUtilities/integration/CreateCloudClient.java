@@ -2,7 +2,7 @@ package com.justinsafford.cfUtilities.integration;
 
 import com.justinsafford.cfUtilities.Application;
 import com.justinsafford.cfUtilities.cloudClient.CloudClientRepository;
-import com.justinsafford.cfUtilities.testHelperClasses.CloudTestCreds;
+import com.justinsafford.cfUtilities.cloudTestHelperClasses.CloudTestCreds;
 import org.cloudfoundry.client.lib.CloudFoundryClient;
 import org.junit.Before;
 import org.junit.Ignore;

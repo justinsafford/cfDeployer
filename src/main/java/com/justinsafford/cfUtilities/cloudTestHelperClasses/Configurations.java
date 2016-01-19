@@ -1,6 +1,5 @@
-package com.justinsafford.cfUtilities;
+package com.justinsafford.cfUtilities.cloudTestHelperClasses;
 
-import com.justinsafford.cfUtilities.testHelperClasses.CloudTestCreds;
 import org.cloudfoundry.client.lib.CloudCredentials;
 import org.cloudfoundry.client.lib.CloudFoundryClient;
 import org.springframework.context.annotation.Bean;

@@ -1,4 +1,4 @@
-package com.justinsafford.cfUtilities.testHelperClasses;
+package com.justinsafford.cfUtilities.cloudTestHelperClasses;
 
 public class CloudTestCreds {
     public String cloudUser;
