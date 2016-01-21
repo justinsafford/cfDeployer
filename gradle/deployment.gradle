@@ -32,7 +32,7 @@ cloudfoundry {
     startApp = false
 
     services {
-        'autoDb' {
+        'cfDeployerDb' {
             label = "mongolab"
             plan = "sandbox"
             bind = true

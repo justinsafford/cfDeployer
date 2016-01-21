@@ -1,5 +1,6 @@
 package com.justinsafford.cfUtilities.cloudTestHelperClasses;
 
+import com.justinsafford.cfUtilities.cloudClient.CloudClient;
 import org.cloudfoundry.client.lib.CloudCredentials;
 import org.cloudfoundry.client.lib.CloudFoundryClient;
 import org.springframework.context.annotation.Bean;
@@ -29,15 +30,14 @@ public class Configurations {
 
     @Bean
     @Profile("test")
-    public CloudTestCreds testCloudCreds() {
-        CloudTestCreds cloudTestCreds = new CloudTestCreds();
-        cloudTestCreds.cloudUser = System.getenv("CFUSER");
-        cloudTestCreds.cloudPass = System.getenv("CFPASS");
-        cloudTestCreds.cloudOrg = System.getenv("CFORG");
-        cloudTestCreds.cloudSpace = System.getenv("CFSPACE");
+    public CloudClient cloudTestCreds() {
+        CloudClient cloudTestCreds = new CloudClient();
+        cloudTestCreds.setCloudUser(System.getenv("CFUSER"));
+        cloudTestCreds.setCloudPass(System.getenv("CFPASS"));
+        cloudTestCreds.setCloudOrg(System.getenv("CFORG"));
+        cloudTestCreds.setCloudSpace(System.getenv("CFSPACE"));
 
         return cloudTestCreds;
     }
-
 }
 

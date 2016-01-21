@@ -5,7 +5,6 @@ import com.justinsafford.cfUtilities.cloudClient.CloudClient;
 import com.justinsafford.cfUtilities.cloudClient.CloudClientRepository;
 import com.justinsafford.cfUtilities.cloudClient.CloudClientRequest;
 import com.justinsafford.cfUtilities.cloudClient.CloudController;
-import com.justinsafford.cfUtilities.cloudTestHelperClasses.CloudTestCreds;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,7 +32,7 @@ public class CreateCloudClient {
     CloudController cloudController;
 
     @Autowired
-    CloudTestCreds testCloudCreds;
+    CloudClient testCloudCreds;
 
 
     @Before
@@ -45,20 +44,20 @@ public class CreateCloudClient {
     @Test
     public void createNewCloudFoundryClient() throws Exception {
         CloudClientRequest cloudClientRequest = new CloudClientRequest();
-        cloudClientRequest.setCloudFoundryUsername(testCloudCreds.cloudUser);
-        cloudClientRequest.setCloudFoundryPassword(testCloudCreds.cloudPass);
-        cloudClientRequest.setCloudFoundryOrg(testCloudCreds.cloudOrg);
-        cloudClientRequest.setCloudFoundrySpace(testCloudCreds.cloudSpace);
+        cloudClientRequest.setCloudFoundryUsername(testCloudCreds.getCloudUser());
+        cloudClientRequest.setCloudFoundryPassword(testCloudCreds.getCloudPass());
+        cloudClientRequest.setCloudFoundryOrg(testCloudCreds.getCloudOrg());
+        cloudClientRequest.setCloudFoundrySpace(testCloudCreds.getCloudSpace());
 
         cloudController.createCloudFoundryClient(cloudClientRequest);
 
         List<CloudClient> cloudClientsList = cloudClientRepository.findAll();
         assertThat(cloudClientsList.size(), is(1));
         CloudClient actualCloudClient = cloudClientsList.get(0);
-        assertThat(actualCloudClient.getCloudUser(), is(testCloudCreds.cloudUser));
-        assertThat(actualCloudClient.getCloudPass(), is(testCloudCreds.cloudPass));
-        assertThat(actualCloudClient.getCloudOrg(), is(testCloudCreds.cloudOrg));
-        assertThat(actualCloudClient.getCloudSpace(), is(testCloudCreds.cloudSpace));
+        assertThat(actualCloudClient.getCloudUser(), is(testCloudCreds.getCloudUser()));
+        assertThat(actualCloudClient.getCloudPass(), is(testCloudCreds.getCloudPass()));
+        assertThat(actualCloudClient.getCloudOrg(), is(testCloudCreds.getCloudOrg()));
+        assertThat(actualCloudClient.getCloudSpace(), is(testCloudCreds.getCloudSpace()));
 
         URL url = new URL("HTTP", "api.run.pivotal.io", 80, "");
         assertThat(actualCloudClient.getCloudUrl(), is(url));
