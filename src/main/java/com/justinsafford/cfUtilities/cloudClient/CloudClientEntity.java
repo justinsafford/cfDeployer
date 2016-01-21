@@ -1,8 +1,16 @@
 package com.justinsafford.cfUtilities.cloudClient;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.net.URL;
 
-public class CloudClient {
+@Document(collection = "cloudClients")
+public class CloudClientEntity {
+
+    @Id
+    private String cloudClientId;
+
     private String cloudUser;
     private String cloudPass;
     private String cloudOrg;
@@ -47,5 +55,13 @@ public class CloudClient {
 
     public void setCloudUrl(URL cloudUrl) {
         this.cloudUrl = cloudUrl;
+    }
+
+    public void setCloudClientId(String cloudClientId) {
+        this.cloudClientId = cloudClientId;
+    }
+
+    public String getCloudClientId() {
+        return cloudClientId;
     }
 }

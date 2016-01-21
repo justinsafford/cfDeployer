@@ -1,7 +1,5 @@
-package com.justinsafford.cfUtilities.integration;
-
 import com.justinsafford.cfUtilities.Application;
-import com.justinsafford.cfUtilities.cloudClient.CloudClient;
+import com.justinsafford.cfUtilities.cloudClient.CloudClientEntity;
 import com.justinsafford.cfUtilities.cloudClient.CloudClientRepository;
 import com.justinsafford.cfUtilities.cloudClient.CloudClientRequest;
 import com.justinsafford.cfUtilities.cloudClient.CloudController;
@@ -32,7 +30,7 @@ public class CreateCloudClient {
     CloudController cloudController;
 
     @Autowired
-    CloudClient testCloudCreds;
+    CloudClientEntity testCloudCreds;
 
 
     @Before
@@ -51,15 +49,15 @@ public class CreateCloudClient {
 
         cloudController.createCloudFoundryClient(cloudClientRequest);
 
-        List<CloudClient> cloudClientsList = cloudClientRepository.findAll();
-        assertThat(cloudClientsList.size(), is(1));
-        CloudClient actualCloudClient = cloudClientsList.get(0);
-        assertThat(actualCloudClient.getCloudUser(), is(testCloudCreds.getCloudUser()));
-        assertThat(actualCloudClient.getCloudPass(), is(testCloudCreds.getCloudPass()));
-        assertThat(actualCloudClient.getCloudOrg(), is(testCloudCreds.getCloudOrg()));
-        assertThat(actualCloudClient.getCloudSpace(), is(testCloudCreds.getCloudSpace()));
+        List<CloudClientEntity> cloudClientsListEntity = cloudClientRepository.findAll();
+        assertThat(cloudClientsListEntity.size(), is(1));
+        CloudClientEntity actualCloudClientEntity = cloudClientsListEntity.get(0);
+        assertThat(actualCloudClientEntity.getCloudUser(), is(testCloudCreds.getCloudUser()));
+        assertThat(actualCloudClientEntity.getCloudPass(), is(testCloudCreds.getCloudPass()));
+        assertThat(actualCloudClientEntity.getCloudOrg(), is(testCloudCreds.getCloudOrg()));
+        assertThat(actualCloudClientEntity.getCloudSpace(), is(testCloudCreds.getCloudSpace()));
 
         URL url = new URL("HTTP", "api.run.pivotal.io", 80, "");
-        assertThat(actualCloudClient.getCloudUrl(), is(url));
+        assertThat(actualCloudClientEntity.getCloudUrl(), is(url));
     }
 }

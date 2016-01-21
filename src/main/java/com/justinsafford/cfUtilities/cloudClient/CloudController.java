@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.UUID;
 
 @RestController
 public class CloudController {
@@ -22,7 +23,7 @@ public class CloudController {
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public void createCloudFoundryClient(@RequestBody CloudClientRequest cloudClientRequest) {
+    public CloudClientResponse createCloudFoundryClient(@RequestBody CloudClientRequest cloudClientRequest) {
         CloudCredentials cloudCredentials = new CloudCredentials(
                 cloudClientRequest.getCloudFoundryUsername(),
                 cloudClientRequest.getCloudFoundryPassword());
@@ -41,13 +42,21 @@ public class CloudController {
                         cloudClientRequest.getCloudFoundryOrg(),
                         cloudClientRequest.getCloudFoundrySpace());
 
-        CloudClient cloudClient = new CloudClient();
-        cloudClient.setCloudUser(cloudClientRequest.getCloudFoundryUsername());
-        cloudClient.setCloudPass(cloudClientRequest.getCloudFoundryPassword());
-        cloudClient.setCloudOrg(cloudClientRequest.getCloudFoundryOrg());
-        cloudClient.setCloudSpace(cloudClientRequest.getCloudFoundrySpace());
-        cloudClient.setCloudUrl(url);
+        CloudClientEntity cloudClientEntity = new CloudClientEntity();
+        cloudClientEntity.setCloudClientId(UUID.randomUUID().toString());
+        cloudClientEntity.setCloudUser(cloudClientRequest.getCloudFoundryUsername());
+        cloudClientEntity.setCloudUser(cloudClientRequest.getCloudFoundryUsername());
+        cloudClientEntity.setCloudPass(cloudClientRequest.getCloudFoundryPassword());
+        cloudClientEntity.setCloudOrg(cloudClientRequest.getCloudFoundryOrg());
+        cloudClientEntity.setCloudSpace(cloudClientRequest.getCloudFoundrySpace());
+        cloudClientEntity.setCloudUrl(url);
 
-        cloudClientRepository.save(cloudClient);
+        cloudClientRepository.save(cloudClientEntity);
+
+
+        CloudClientResponse cloudClientResponse = new CloudClientResponse();
+        cloudClientResponse.setCloudClientId(cloudClientEntity.getCloudClientId());
+
+        return cloudClientResponse;
     }
 }
