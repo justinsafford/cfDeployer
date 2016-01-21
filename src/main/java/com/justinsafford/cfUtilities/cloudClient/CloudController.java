@@ -2,6 +2,7 @@ package com.justinsafford.cfUtilities.cloudClient;
 
 import org.cloudfoundry.client.lib.CloudCredentials;
 import org.cloudfoundry.client.lib.CloudFoundryClient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import java.net.URL;
 @RestController
 public class CloudController {
 
+    @Autowired
     CloudClientRepository cloudClientRepository;
 
     //TODO:Find a way to unit test this
@@ -39,6 +41,13 @@ public class CloudController {
                         cloudClientRequest.getCloudFoundryOrg(),
                         cloudClientRequest.getCloudFoundrySpace());
 
-        cloudClientRepository.save(cloudFoundryClient);
+        CloudClient cloudClient = new CloudClient();
+        cloudClient.setCloudUser(cloudClientRequest.getCloudFoundryUsername());
+        cloudClient.setCloudPass(cloudClientRequest.getCloudFoundryPassword());
+        cloudClient.setCloudOrg(cloudClientRequest.getCloudFoundryOrg());
+        cloudClient.setCloudSpace(cloudClientRequest.getCloudFoundrySpace());
+        cloudClient.setCloudUrl(url);
+
+        cloudClientRepository.save(cloudClient);
     }
 }
