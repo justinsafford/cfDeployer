@@ -15,7 +15,7 @@ public class Configurations {
 
     @Bean
     @Profile("test")
-    public CloudFoundryClient myCloudFoundryClient() throws MalformedURLException {
+    public CloudFoundryClient myTestCloudFoundryClient() throws MalformedURLException {
         String cloudUser = System.getenv("CFUSER");
         String cloudPass = System.getenv("CFPASS");
         String cloudOrg = System.getenv("CFORG");
@@ -30,7 +30,7 @@ public class Configurations {
 
     @Bean
     @Profile("test")
-    public CloudClientEntity cloudTestCreds() {
+    public CloudClientEntity myTestCloudCreds() {
         CloudClientEntity cloudTestCreds = new CloudClientEntity();
         cloudTestCreds.setCloudUser(System.getenv("CFUSER"));
         cloudTestCreds.setCloudPass(System.getenv("CFPASS"));
