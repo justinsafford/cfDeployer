@@ -27,7 +27,7 @@ cloudfoundry {
     uri = config.cf.uri
     application = config.cf.application
     memory = 512
-    file = file("${buildDir}/download/${archivesBaseName}-${version}.jar")
+    file = file("${buildDir}/libs/${archivesBaseName}-${version}.jar")
 
     startApp = false
 
