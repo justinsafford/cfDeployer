@@ -45,5 +45,6 @@ public class SpaceController {
         );
 
         cloudFoundryClient.createSpace(spaceName);
+        cloudFoundryClient.associateDeveloperWithSpace(spaceName);
     }
 }
