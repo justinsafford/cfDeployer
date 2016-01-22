@@ -9,6 +9,15 @@ environments {
         }
     }
 
+    uat {
+        cf {
+            target = 'https://api.run.pivotal.io'
+            space = 'uat'
+            uri = 'http://cfDeployer-uat.cfapps.io'
+            application = 'cfDeployer-uat'
+        }
+    }
+
     staging {
         cf {
             target = 'https://api.run.pivotal.io'
