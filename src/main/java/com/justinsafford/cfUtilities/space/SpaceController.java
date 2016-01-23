@@ -22,11 +22,11 @@ public class SpaceController {
     CloudClientRepository cloudClientRepository;
 
     @RequestMapping(
-            value = "/space/{cloudClientId}",
+            value = "/spaces/",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public void createSpace(@PathVariable String cloudClientId,
+    public void createSpace(@RequestParam String cloudClientId,
                             @RequestParam String spaceName) {
 
         CloudClientEntity cloudClientEntity = cloudClientRepository.findOne(cloudClientId);
@@ -52,11 +52,11 @@ public class SpaceController {
     }
 
     @RequestMapping(
-            value = "/space/{cloudClientId}",
+            value = "/spaces",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public List<String> getAllSpaces(@PathVariable String cloudClientId) {
+    public List<String> getAllSpaces(@RequestParam String cloudClientId) {
 
         CloudClientEntity cloudClientEntity = cloudClientRepository.findOne(cloudClientId);
 

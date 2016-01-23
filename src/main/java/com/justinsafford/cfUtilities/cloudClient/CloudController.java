@@ -19,7 +19,7 @@ public class CloudController {
 
     //TODO:Find a way to unit test this
     @RequestMapping(
-            value = "/cloudClient",
+            value = "/cloudClients",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)

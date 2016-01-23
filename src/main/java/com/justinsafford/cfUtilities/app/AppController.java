@@ -23,11 +23,11 @@ public class AppController {
     CloudClientRepository cloudClientRepository;
 
     @RequestMapping(
-            value = "/application/{cloudClientId}",
+            value = "/applications",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public void createApp(@PathVariable String cloudClientId,
+    public void createApp(@RequestParam String cloudClientId,
                           @RequestBody ApplicationRequest applicationRequest) {
 
         CloudClientEntity cloudClientEntity = cloudClientRepository.findOne(cloudClientId);
@@ -59,11 +59,11 @@ public class AppController {
     }
 
     @RequestMapping(
-            value = "/application/{cloudClientId}",
+            value = "/applications",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public List<String> getAllApps(@PathVariable String cloudClientId) {
+    public List<String> getAllApps(@RequestParam String cloudClientId) {
 
         CloudClientEntity cloudClientEntity = cloudClientRepository.findOne(cloudClientId);
 
@@ -93,12 +93,12 @@ public class AppController {
     }
 
     @RequestMapping(
-            value = "/application/{appName}/{cloudClientId}",
+            value = "/applications/{appName}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public ApplicationResponse getAppDetails(@PathVariable String cloudClientId,
-                                      @PathVariable String appName) {
+    public ApplicationResponse getAppDetails(@RequestParam String cloudClientId,
+                                             @PathVariable String appName) {
 
         CloudClientEntity cloudClientEntity = cloudClientRepository.findOne(cloudClientId);
 
