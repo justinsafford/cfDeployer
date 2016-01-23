@@ -91,4 +91,49 @@ public class AppController {
 
         return cloudAppsList;
     }
+
+    @RequestMapping(
+            value = "/application/{appName}/{cloudClientId}",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.CREATED)
+    public ApplicationResponse getAppDetails(@PathVariable String cloudClientId,
+                                      @PathVariable String appName) {
+
+        CloudClientEntity cloudClientEntity = cloudClientRepository.findOne(cloudClientId);
+
+        CloudCredentials cloudCredentials = new CloudCredentials(cloudClientEntity.getCloudUser(), cloudClientEntity.getCloudPass());
+        URL url = null;
+        try {
+            url = new URL("HTTP", "api.run.pivotal.io", 80, "");
+        } catch (MalformedURLException e) {
+            System.out.println("something bad happened here");
+        }
+        String cloudOrg = cloudClientEntity.getCloudOrg();
+        String cloudSpace = cloudClientEntity.getCloudSpace();
+        CloudFoundryClient cloudFoundryClient = new CloudFoundryClient(
+                cloudCredentials,
+                url,
+                cloudOrg,
+                cloudSpace
+        );
+
+        CloudApplication cloudApplicationFound = cloudFoundryClient.getApplication(appName);
+
+        ApplicationResponse applicationResponse = new ApplicationResponse();
+
+        applicationResponse.setAppName(cloudApplicationFound.getName());
+        applicationResponse.setSpaceName(cloudApplicationFound.getSpace().getName());
+        applicationResponse.setStaging(cloudApplicationFound.getStaging());
+        applicationResponse.setAppState(cloudApplicationFound.getState().toString());
+        applicationResponse.setInstances(cloudApplicationFound.getInstances());
+        applicationResponse.setRunningInstances(cloudApplicationFound.getRunningInstances());
+        applicationResponse.setMemory(cloudApplicationFound.getMemory());
+        applicationResponse.setDiskQuota(cloudApplicationFound.getDiskQuota());
+        applicationResponse.setUris(cloudApplicationFound.getUris());
+        applicationResponse.setServices(cloudApplicationFound.getServices());
+        applicationResponse.setEnvVariables(cloudApplicationFound.getEnv());
+
+        return applicationResponse;
+    }
 }
