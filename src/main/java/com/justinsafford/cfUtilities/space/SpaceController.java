@@ -2,7 +2,7 @@ package com.justinsafford.cfUtilities.space;
 
 import com.justinsafford.cfUtilities.cloudClient.CloudClientEntity;
 import com.justinsafford.cfUtilities.cloudClient.CloudClientRepository;
-import org.cloudfoundry.client.lib.CloudCredentials;
+import com.justinsafford.cfUtilities.cloudFoundryClientBuilder.CloudClientBuilder;
 import org.cloudfoundry.client.lib.CloudFoundryClient;
 import org.cloudfoundry.client.lib.domain.CloudSpace;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +18,9 @@ public class SpaceController {
 
     @Autowired
     CloudClientRepository cloudClientRepository;
+
+    @Autowired
+    CloudClientBuilder cloudClientBuilder;
 
     @RequestMapping(
             value = "/spaces/",
@@ -31,21 +32,11 @@ public class SpaceController {
 
         CloudClientEntity cloudClientEntity = cloudClientRepository.findOne(cloudClientId);
 
-        CloudCredentials cloudCredentials = new CloudCredentials(cloudClientEntity.getCloudUser(), cloudClientEntity.getCloudPass());
-        URL url = null;
-        try {
-            url = new URL("HTTP", "api.run.pivotal.io", 80, "");
-        } catch (MalformedURLException e) {
-            System.out.println("something bad happened here");
-        }
-        String cloudOrg = cloudClientEntity.getCloudOrg();
-        String cloudSpace = cloudClientEntity.getCloudSpace();
-        CloudFoundryClient cloudFoundryClient = new CloudFoundryClient(
-                cloudCredentials,
-                url,
-                cloudOrg,
-                cloudSpace
-        );
+        CloudFoundryClient cloudFoundryClient = cloudClientBuilder.generateCloudFoundryClient(
+                cloudClientEntity.getCloudUser(),
+                cloudClientEntity.getCloudPass(),
+                cloudClientEntity.getCloudOrg(),
+                cloudClientEntity.getCloudSpace());
 
         cloudFoundryClient.createSpace(spaceName);
         cloudFoundryClient.associateDeveloperWithSpace(spaceName);
@@ -60,21 +51,11 @@ public class SpaceController {
 
         CloudClientEntity cloudClientEntity = cloudClientRepository.findOne(cloudClientId);
 
-        CloudCredentials cloudCredentials = new CloudCredentials(cloudClientEntity.getCloudUser(), cloudClientEntity.getCloudPass());
-        URL url = null;
-        try {
-            url = new URL("HTTP", "api.run.pivotal.io", 80, "");
-        } catch (MalformedURLException e) {
-            System.out.println("something bad happened here");
-        }
-        String cloudOrg = cloudClientEntity.getCloudOrg();
-        String cloudSpace = cloudClientEntity.getCloudSpace();
-        CloudFoundryClient cloudFoundryClient = new CloudFoundryClient(
-                cloudCredentials,
-                url,
-                cloudOrg,
-                cloudSpace
-        );
+        CloudFoundryClient cloudFoundryClient = cloudClientBuilder.generateCloudFoundryClient(
+                cloudClientEntity.getCloudUser(),
+                cloudClientEntity.getCloudPass(),
+                cloudClientEntity.getCloudOrg(),
+                cloudClientEntity.getCloudSpace());
 
         List<CloudSpace> cloudSpacesFound = cloudFoundryClient.getSpaces();
         List<String> cloudSpaceList = new ArrayList<>();

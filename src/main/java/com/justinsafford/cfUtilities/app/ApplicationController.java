@@ -2,7 +2,7 @@ package com.justinsafford.cfUtilities.app;
 
 import com.justinsafford.cfUtilities.cloudClient.CloudClientEntity;
 import com.justinsafford.cfUtilities.cloudClient.CloudClientRepository;
-import org.cloudfoundry.client.lib.CloudCredentials;
+import com.justinsafford.cfUtilities.cloudFoundryClientBuilder.CloudClientBuilder;
 import org.cloudfoundry.client.lib.CloudFoundryClient;
 import org.cloudfoundry.client.lib.domain.CloudApplication;
 import org.cloudfoundry.client.lib.domain.Staging;
@@ -11,8 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +19,9 @@ public class ApplicationController {
 
     @Autowired
     CloudClientRepository cloudClientRepository;
+
+    @Autowired
+    CloudClientBuilder cloudClientBuilder;
 
     @RequestMapping(
             value = "/applications",
@@ -32,21 +33,11 @@ public class ApplicationController {
 
         CloudClientEntity cloudClientEntity = cloudClientRepository.findOne(cloudClientId);
 
-        CloudCredentials cloudCredentials = new CloudCredentials(cloudClientEntity.getCloudUser(), cloudClientEntity.getCloudPass());
-        URL url = null;
-        try {
-            url = new URL("HTTP", "api.run.pivotal.io", 80, "");
-        } catch (MalformedURLException e) {
-            System.out.println("something bad happened here");
-        }
-        String cloudOrg = cloudClientEntity.getCloudOrg();
-        String cloudSpace = cloudClientEntity.getCloudSpace();
-        CloudFoundryClient cloudFoundryClient = new CloudFoundryClient(
-                cloudCredentials,
-                url,
-                cloudOrg,
-                cloudSpace
-        );
+        CloudFoundryClient cloudFoundryClient = cloudClientBuilder.generateCloudFoundryClient(
+                cloudClientEntity.getCloudUser(),
+                cloudClientEntity.getCloudPass(),
+                cloudClientEntity.getCloudOrg(),
+                cloudClientEntity.getCloudSpace());
 
         ArrayList<String> uris = new ArrayList<>();
         String uri = "http://" + applicationRequest.getApplicationName() + ".cfapps.io";
@@ -67,21 +58,11 @@ public class ApplicationController {
 
         CloudClientEntity cloudClientEntity = cloudClientRepository.findOne(cloudClientId);
 
-        CloudCredentials cloudCredentials = new CloudCredentials(cloudClientEntity.getCloudUser(), cloudClientEntity.getCloudPass());
-        URL url = null;
-        try {
-            url = new URL("HTTP", "api.run.pivotal.io", 80, "");
-        } catch (MalformedURLException e) {
-            System.out.println("something bad happened here");
-        }
-        String cloudOrg = cloudClientEntity.getCloudOrg();
-        String cloudSpace = cloudClientEntity.getCloudSpace();
-        CloudFoundryClient cloudFoundryClient = new CloudFoundryClient(
-                cloudCredentials,
-                url,
-                cloudOrg,
-                cloudSpace
-        );
+        CloudFoundryClient cloudFoundryClient = cloudClientBuilder.generateCloudFoundryClient(
+                cloudClientEntity.getCloudUser(),
+                cloudClientEntity.getCloudPass(),
+                cloudClientEntity.getCloudOrg(),
+                cloudClientEntity.getCloudSpace());
 
         List<CloudApplication> cloudAppsFound = cloudFoundryClient.getApplications();
         List<String> cloudAppsList = new ArrayList<>();
@@ -102,21 +83,11 @@ public class ApplicationController {
 
         CloudClientEntity cloudClientEntity = cloudClientRepository.findOne(cloudClientId);
 
-        CloudCredentials cloudCredentials = new CloudCredentials(cloudClientEntity.getCloudUser(), cloudClientEntity.getCloudPass());
-        URL url = null;
-        try {
-            url = new URL("HTTP", "api.run.pivotal.io", 80, "");
-        } catch (MalformedURLException e) {
-            System.out.println("something bad happened here");
-        }
-        String cloudOrg = cloudClientEntity.getCloudOrg();
-        String cloudSpace = cloudClientEntity.getCloudSpace();
-        CloudFoundryClient cloudFoundryClient = new CloudFoundryClient(
-                cloudCredentials,
-                url,
-                cloudOrg,
-                cloudSpace
-        );
+        CloudFoundryClient cloudFoundryClient = cloudClientBuilder.generateCloudFoundryClient(
+                cloudClientEntity.getCloudUser(),
+                cloudClientEntity.getCloudPass(),
+                cloudClientEntity.getCloudOrg(),
+                cloudClientEntity.getCloudSpace());
 
         CloudApplication cloudApplicationFound = cloudFoundryClient.getApplication(appName);
 

@@ -1,5 +1,6 @@
 package com.justinsafford.cfUtilities.cloudClient;
 
+import com.justinsafford.cfUtilities.cloudFoundryClientBuilder.CloudClientBuilder;
 import org.cloudfoundry.client.lib.CloudFoundryClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

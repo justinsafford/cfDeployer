@@ -1,5 +1,6 @@
 package com.justinsafford.cfUtilities.cloudClient;
 
+import com.justinsafford.cfUtilities.cloudFoundryClientBuilder.DefaultCloudClientBuilder;
 import org.cloudfoundry.client.lib.CloudFoundryClient;
 import org.junit.Before;
 import org.junit.Rule;
