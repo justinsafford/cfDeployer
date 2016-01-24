@@ -11,6 +11,8 @@ import org.mockito.junit.MockitoRule;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.net.URL;
+
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
@@ -25,10 +27,11 @@ public class CloudControllerTest {
     DefaultCloudClientBuilder defaultCloudClientBuilder;
 
     @Mock
-    CloudClientRepository cloudClientRepository;
+    DefaultCloudClientService defaultCloudClientService;
 
     @InjectMocks
     CloudController cloudController;
+
     @Rule
     public MockitoRule mockitoRule = MockitoJUnit.rule();
     MockMvc mockMvc;
@@ -46,14 +49,13 @@ public class CloudControllerTest {
                 .thenReturn(cloudFoundryClient);
 
         CloudClientEntity cloudClientEntity = new CloudClientEntity();
-        when(cloudClientRepository.save(any(CloudClientEntity.class)))
+        when(defaultCloudClientService.addNewCloudClient(any(CloudClientRequest.class), any(URL.class)))
                 .thenReturn(cloudClientEntity);
 
-        mockMvc.perform(post("/cloudClients")
-                .accept(MediaType.APPLICATION_JSON)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("{}"))
-                .andExpect(status().isCreated());
-
+                mockMvc.perform(post("/cloudClients")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{}"))
+                        .andExpect(status().isCreated());
     }
 }

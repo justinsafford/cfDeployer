@@ -6,16 +6,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.UUID;
-
 @RestController
 public class CloudController {
 
     @Autowired
-    CloudClientRepository cloudClientRepository;
+    CloudClientService cloudClientService;
 
     @Autowired
-    DefaultCloudClientBuilder defaultCloudClientBuilder;
+    CloudClientBuilder cloudClientBuilder;
 
     @RequestMapping(
             value = "/cloudClients",
@@ -24,21 +22,14 @@ public class CloudController {
     @ResponseStatus(HttpStatus.CREATED)
     public CloudClientResponse createCloudClient(@RequestBody CloudClientRequest cloudClientRequest) {
 
-        CloudFoundryClient cloudFoundryClient = defaultCloudClientBuilder.generateCloudFoundryClient(
+        CloudFoundryClient cloudFoundryClient = cloudClientBuilder.generateCloudFoundryClient(
                 cloudClientRequest.getCloudFoundryUsername(),
                 cloudClientRequest.getCloudFoundryPassword(),
                 cloudClientRequest.getCloudFoundryOrg(),
                 cloudClientRequest.getCloudFoundrySpace());
 
-        CloudClientEntity cloudClientEntity = new CloudClientEntity();
-        cloudClientEntity.setCloudClientId(UUID.randomUUID().toString());
-        cloudClientEntity.setCloudUser(cloudClientRequest.getCloudFoundryUsername());
-        cloudClientEntity.setCloudPass(cloudClientRequest.getCloudFoundryPassword());
-        cloudClientEntity.setCloudOrg(cloudClientRequest.getCloudFoundryOrg());
-        cloudClientEntity.setCloudSpace(cloudClientRequest.getCloudFoundrySpace());
-        cloudClientEntity.setCloudUrl(cloudFoundryClient.getCloudControllerUrl());
-
-        cloudClientRepository.save(cloudClientEntity);
+        CloudClientEntity cloudClientEntity =
+                cloudClientService.addNewCloudClient(cloudClientRequest, cloudFoundryClient.getCloudControllerUrl());
 
         CloudClientResponse cloudClientResponse = new CloudClientResponse();
         cloudClientResponse.setCloudClientId(cloudClientEntity.getCloudClientId());
