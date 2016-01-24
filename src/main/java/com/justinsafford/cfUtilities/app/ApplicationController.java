@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-public class AppController {
+public class ApplicationController {
 
     @Autowired
     CloudClientRepository cloudClientRepository;
