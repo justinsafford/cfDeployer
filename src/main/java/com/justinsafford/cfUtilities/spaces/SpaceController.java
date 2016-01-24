@@ -1,7 +1,7 @@
-package com.justinsafford.cfUtilities.space;
+package com.justinsafford.cfUtilities.spaces;
 
-import com.justinsafford.cfUtilities.cloudClient.CloudClientEntity;
-import com.justinsafford.cfUtilities.cloudClient.CloudClientRepository;
+import com.justinsafford.cfUtilities.cloudClients.CloudClientEntity;
+import com.justinsafford.cfUtilities.cloudClients.CloudClientRepository;
 import com.justinsafford.cfUtilities.cloudFoundryClientBuilder.CloudClientBuilder;
 import org.cloudfoundry.client.lib.CloudFoundryClient;
 import org.cloudfoundry.client.lib.domain.CloudSpace;
@@ -23,7 +23,7 @@ public class SpaceController {
     CloudClientBuilder cloudClientBuilder;
 
     @RequestMapping(
-            value = "/spaces/",
+            value = "/spaces",
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)

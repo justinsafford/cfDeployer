@@ -1,7 +1,7 @@
-package com.justinsafford.cfUtilities.app;
+package com.justinsafford.cfUtilities.apps;
 
-import com.justinsafford.cfUtilities.cloudClient.CloudClientEntity;
-import com.justinsafford.cfUtilities.cloudClient.CloudClientRepository;
+import com.justinsafford.cfUtilities.cloudClients.CloudClientEntity;
+import com.justinsafford.cfUtilities.cloudClients.CloudClientRepository;
 import com.justinsafford.cfUtilities.cloudFoundryClientBuilder.CloudClientBuilder;
 import org.cloudfoundry.client.lib.CloudFoundryClient;
 import org.cloudfoundry.client.lib.domain.CloudApplication;
@@ -53,7 +53,7 @@ public class ApplicationController {
             value = "/applications",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     public List<String> getAllApps(@RequestParam String cloudClientId) {
 
         CloudClientEntity cloudClientEntity = cloudClientRepository.findOne(cloudClientId);
@@ -77,7 +77,7 @@ public class ApplicationController {
             value = "/applications/{appName}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     public ApplicationResponse getAppDetails(@RequestParam String cloudClientId,
                                              @PathVariable String appName) {
 
@@ -92,11 +92,8 @@ public class ApplicationController {
         CloudApplication cloudApplicationFound = cloudFoundryClient.getApplication(appName);
 
         ApplicationResponse applicationResponse = new ApplicationResponse();
-
         applicationResponse.setAppName(cloudApplicationFound.getName());
-        applicationResponse.setSpaceName(cloudApplicationFound.getSpace().getName());
         applicationResponse.setStaging(cloudApplicationFound.getStaging());
-        applicationResponse.setAppState(cloudApplicationFound.getState().toString());
         applicationResponse.setInstances(cloudApplicationFound.getInstances());
         applicationResponse.setRunningInstances(cloudApplicationFound.getRunningInstances());
         applicationResponse.setMemory(cloudApplicationFound.getMemory());
@@ -104,6 +101,9 @@ public class ApplicationController {
         applicationResponse.setUris(cloudApplicationFound.getUris());
         applicationResponse.setServices(cloudApplicationFound.getServices());
         applicationResponse.setEnvVariables(cloudApplicationFound.getEnv());
+
+        applicationResponse.setSpaceName(cloudApplicationFound.getSpace().getName());
+        applicationResponse.setAppState(cloudApplicationFound.getState().toString());
 
         return applicationResponse;
     }

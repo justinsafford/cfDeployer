@@ -1,4 +1,4 @@
-package com.justinsafford.cfUtilities.app;
+package com.justinsafford.cfUtilities.apps;
 
 import org.cloudfoundry.client.lib.domain.Staging;
 

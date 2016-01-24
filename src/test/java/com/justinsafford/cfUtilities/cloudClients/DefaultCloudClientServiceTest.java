@@ -1,4 +1,4 @@
-package com.justinsafford.cfUtilities.cloudClient;
+package com.justinsafford.cfUtilities.cloudClients;
 
 import org.junit.Rule;
 import org.junit.Test;

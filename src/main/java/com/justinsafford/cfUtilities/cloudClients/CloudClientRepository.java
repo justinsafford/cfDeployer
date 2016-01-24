@@ -1,4 +1,4 @@
-package com.justinsafford.cfUtilities.cloudClient;
+package com.justinsafford.cfUtilities.cloudClients;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
