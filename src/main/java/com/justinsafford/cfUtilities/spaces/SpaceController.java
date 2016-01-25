@@ -66,12 +66,12 @@ public class SpaceController {
     }
 
     @RequestMapping(
-            value = "/spaces",
+            value = "/spaces/{spaceName}",
             method = RequestMethod.DELETE,
             consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public void deleteSpace(@RequestParam String cloudClientId,
-                            @RequestParam String spaceName) {
+    public void deleteSpace(@PathVariable String spaceName,
+                            @RequestParam String cloudClientId) {
 
         CloudClientEntity cloudClientEntity = cloudClientRepository.findOne(cloudClientId);
 

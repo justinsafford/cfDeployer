@@ -94,10 +94,9 @@ public class SpaceControllerTest {
         when(defaultCloudClientBuilder.generateCloudFoundryClient(anyString(), anyString(), anyString(), anyString()))
                 .thenReturn(cloudFoundryClient);
 
-        mockMvc.perform(delete("/spaces")
+        mockMvc.perform(delete("/spaces/{spaceName}", "space-name")
                 .accept(MediaType.APPLICATION_JSON)
                 .param("cloudClientId", "cloud-id")
-                .param("spaceName", "space-name")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
 
