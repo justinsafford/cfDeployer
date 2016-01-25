@@ -107,4 +107,23 @@ public class ApplicationController {
 
         return applicationResponse;
     }
+
+    @RequestMapping(
+            value = "/applications/{appName}",
+            method = RequestMethod.DELETE,
+            consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteSpace( @PathVariable String appName,
+                             @RequestParam String cloudClientId) {
+
+        CloudClientEntity cloudClientEntity = cloudClientRepository.findOne(cloudClientId);
+
+        CloudFoundryClient cloudFoundryClient = cloudClientBuilder.generateCloudFoundryClient(
+                cloudClientEntity.getCloudUser(),
+                cloudClientEntity.getCloudPass(),
+                cloudClientEntity.getCloudOrg(),
+                cloudClientEntity.getCloudSpace());
+
+        cloudFoundryClient.deleteApplication(appName);
+    }
 }

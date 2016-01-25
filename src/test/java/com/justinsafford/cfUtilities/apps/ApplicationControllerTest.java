@@ -20,6 +20,7 @@ import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -103,6 +104,26 @@ public class ApplicationControllerTest {
         when(cloudApplication.getState()).thenReturn(CloudApplication.AppState.valueOf("STARTED"));
 
         mockMvc.perform(get("/applications/{appName}", "app-name")
+                .accept(MediaType.APPLICATION_JSON)
+                .param("cloudClientId", "cloud-id")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        verify(cloudClientRepository, times(1)).findOne("cloud-id");
+        verify(defaultCloudClientBuilder, times(1)).generateCloudFoundryClient(anyString(), anyString(), anyString(), anyString());
+    }
+
+    @Test
+    public void deleteAppWithinASpace() throws Exception {
+        CloudClientEntity cloudClientEntity = new CloudClientEntity();
+        when(cloudClientRepository.findOne(anyString()))
+                .thenReturn(cloudClientEntity);
+
+        CloudFoundryClient cloudFoundryClient = mock(CloudFoundryClient.class);
+        when(defaultCloudClientBuilder.generateCloudFoundryClient(anyString(), anyString(), anyString(), anyString()))
+                .thenReturn(cloudFoundryClient);
+
+        mockMvc.perform(delete("/applications/{appName}", "app-name")
                 .accept(MediaType.APPLICATION_JSON)
                 .param("cloudClientId", "cloud-id")
                 .contentType(MediaType.APPLICATION_JSON))
