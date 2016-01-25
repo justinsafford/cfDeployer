@@ -111,7 +111,7 @@ public class ApplicationController {
     @RequestMapping(
             value = "/applications/{appName}",
             method = RequestMethod.DELETE,
-            consumes = MediaType.APPLICATION_JSON_VALUE)
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public void deleteSpace( @PathVariable String appName,
                              @RequestParam String cloudClientId) {
