@@ -1,6 +1,5 @@
-package apps;
+package com.justinsafford.cfUtilities.apps;
 
-import com.justinsafford.cfUtilities.apps.ApplicationController;
 import com.justinsafford.cfUtilities.cloudClients.CloudClientEntity;
 import com.justinsafford.cfUtilities.cloudClients.CloudClientRepository;
 import com.justinsafford.cfUtilities.cloudFoundryClientBuilder.DefaultCloudClientBuilder;
