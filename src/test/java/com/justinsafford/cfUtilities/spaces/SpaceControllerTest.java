@@ -59,6 +59,9 @@ public class SpaceControllerTest {
                 .param("spaceName", "space-name")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated());
+
+        verify(cloudClientRepository, times(1)).findOne("cloud-id");
+        verify(defaultCloudClientBuilder, times(1)).generateCloudFoundryClient(anyString(), anyString(), anyString(), anyString());
     }
 
     @Test
@@ -76,6 +79,9 @@ public class SpaceControllerTest {
                 .param("cloudClientId", "cloud-id")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
+
+        verify(cloudClientRepository, times(1)).findOne("cloud-id");
+        verify(defaultCloudClientBuilder, times(1)).generateCloudFoundryClient(anyString(), anyString(), anyString(), anyString());
     }
 
     @Test

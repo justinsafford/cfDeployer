@@ -17,8 +17,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -78,6 +79,9 @@ public class ApplicationControllerTest {
                 .param("cloudClientId", "cloud-id")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
+
+        verify(cloudClientRepository, times(1)).findOne("cloud-id");
+        verify(defaultCloudClientBuilder, times(1)).generateCloudFoundryClient(anyString(), anyString(), anyString(), anyString());
     }
 
     @Test
@@ -103,5 +107,8 @@ public class ApplicationControllerTest {
                 .param("cloudClientId", "cloud-id")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
+
+        verify(cloudClientRepository, times(1)).findOne("cloud-id");
+        verify(defaultCloudClientBuilder, times(1)).generateCloudFoundryClient(anyString(), anyString(), anyString(), anyString());
     }
 }

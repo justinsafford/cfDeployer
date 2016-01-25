@@ -16,8 +16,9 @@ import java.net.URL;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
@@ -58,5 +59,7 @@ public class CloudControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{}"))
                         .andExpect(status().isCreated());
+
+        verify(defaultCloudClientBuilder, times(1)).generateCloudFoundryClient(anyString(), anyString(), anyString(), anyString());
     }
 }
