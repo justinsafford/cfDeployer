@@ -64,4 +64,23 @@ public class SpaceController {
 
         return cloudSpaceList;
     }
+
+    @RequestMapping(
+            value = "/spaces",
+            method = RequestMethod.DELETE,
+            consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteSpace(@RequestParam String cloudClientId,
+                            @RequestParam String spaceName) {
+
+        CloudClientEntity cloudClientEntity = cloudClientRepository.findOne(cloudClientId);
+
+        CloudFoundryClient cloudFoundryClient = cloudClientBuilder.generateCloudFoundryClient(
+                cloudClientEntity.getCloudUser(),
+                cloudClientEntity.getCloudPass(),
+                cloudClientEntity.getCloudOrg(),
+                cloudClientEntity.getCloudSpace());
+
+        cloudFoundryClient.deleteSpace(spaceName);
+    }
 }
